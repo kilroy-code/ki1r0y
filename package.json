@@ -1,0 +1,20 @@
+{
+  "name": "ki1r0y",
+  "version": "0.0.1",
+  "description": "You are here.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@kilroy-code/rules": "^0.1",
+    "browserify": "^16.5.1",
+    "jasmine": "^3.5.0"
+  },
+  "scripts": {
+    "test": "jasmine",
+    "build-browser-test": "browserify --debug --standalone dom spec/browserTest.js > spec/browser.js",
+    "pack-browser-test": "webpack --mode=development --display-modules spec/browserTest.js -o spec/browser.js",
+    "test-subs": "for sub in node_modules/@kilroy-code/*; do npm explore @kilroy-code/`basename $sub` -- npm test; done;"
+  },
+  "author": "",
+  "license": "ISC"
+}
