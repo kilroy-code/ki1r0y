@@ -39,6 +39,9 @@ class Registerable {
   static collectProperties(properties) {
     return Promise.resolve(properties);
   }
+  notImplemented(label) {
+    throw new ReferenceError(`Please provide an implementation for rule ${label}.`);
+  }
 }
 Registerable.types = {[Registerable]: Registerable}; // No ES6 static properties in webpack yet.
 Registerable.prototype._eagerProperties = [];

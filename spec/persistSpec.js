@@ -261,7 +261,7 @@ describe('Persistable', function () {
     describe('ordinary (non-Rule) property', function () {
       describe('identityProperties', function () {
         it('lists type.', function () {
-          expect(new Persistable().identityProperties).toEqual(['type']);
+          expect(new Persistable().identityProperties).toEqual(['type', 'instancespecs']);
         });
       });
       describe('requestedIdForSaving', function () {

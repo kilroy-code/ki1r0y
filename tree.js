@@ -1,8 +1,8 @@
 "use strict";
 var Rule = require('@kilroy-code/rules');
-var Persistable = require('./persistable');
+var Registerable = require('./registerable');
 
-class Tree extends Persistable {
+class Tree extends Registerable {
   parent() {
     return null;
   }
@@ -14,22 +14,22 @@ class Tree extends Persistable {
     return Rule.rulify([]); // A rulified array so that changes to length are tracked.
   }
   instancespec() {
-    return this.savedId; // todo: generalize with gatherProperties and inputs
+    this.notImplemented('instancespec');
   } 
   instancespecs() {
     return this.children.map(child => child.instancespec);
   }
-  constructor({instancespecs = [], ...otherProperties} = {}) {
+  constructor({instancespecs = [], parent, ...otherProperties} = {}) {
     super(otherProperties);
+    if (parent) {
+      parent.addChild(this);
+    }
     if (!instancespecs.length) { return; }
-    let classFunction = this.constructor;
-
-    let inspect = require('util').inspect;
-    this.children = Promise.all(instancespecs.map(instancespec => classFunction.create(instancespec)))
-      .then(children => Rule.rulify(children.map(child => this._prepareToAddChild(child))));
+    this.children = Promise.all(instancespecs.map(instancespec => this.constructor.create(instancespec)))
+      .then(children => Rule.rulify(children.map(child => this.addChild(child))));
   }
 }
-Tree.register({ownIdentityProperties: ['instancespecs']});
+Tree.register();
 Tree.prototype._prepareToAddChild = function (child) {
   child.parent = this;
   return child;
@@ -37,7 +37,12 @@ Tree.prototype._prepareToAddChild = function (child) {
 Tree.prototype.addChild = function (child) {
   if (child.parent) { child.parent.removeChild(child); }
   this._prepareToAddChild(child);
-  this.children.push(child);
+  if (!this.children.then) {
+    // Subtle: If this.children is a promise, someone else is responsible for making sure it contains
+    // each added child by the time it resolves. This happens when the constructor promises to
+    // create the instancespecs.
+    this.children.push(child);
+  }
   return child;
 }
 Tree.prototype.removeChild = function (child) {

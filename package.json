@@ -13,7 +13,8 @@
     "test": "jasmine",
     "build-browser-test": "browserify --debug --standalone dom spec/browserTest.js > spec/browser.js",
     "pack-browser-test": "webpack --mode=development --display-modules spec/browserTest.js -o spec/browser.js",
-    "test-subs": "for sub in node_modules/@kilroy-code/*; do npm explore @kilroy-code/`basename $sub` -- npm test; done;"
+    "test-subs": "for sub in node_modules/@kilroy-code/*; do npm explore @kilroy-code/`basename $sub` -- npm test; done;",
+    "test-all": "npm test && npm run test-subs"
   },
   "author": "",
   "license": "ISC"

@@ -1,9 +1,9 @@
 "use strict";
 
 var Rule = require('@kilroy-code/rules');
-var Registerable = require('./registerable');
+var Tree = require('./tree');
 
-class Persistable extends Registerable {
+class Persistable extends Tree {
   static register(options = {}) {
     let {
       classFunction, prototype, ownRuleProperties,
@@ -65,6 +65,9 @@ class Persistable extends Registerable {
   identitySpec() {
     return this._gatherProperties(this.identityProperties);
   }
+  instancespec() {
+    return this.savedId; // todo: generalize with gatherProperties and inputs
+  } 
   savedId() {
     return this.constructor.store.save(this.collectionName,
                                        this.requestedIdForSaving,
@@ -76,7 +79,7 @@ Persistable.store = { // No ES6 static properties in webpack yet.
   retrieve: this._noStore
 };
 
-Persistable.register({identityProperties: ['type']});
+Persistable.register({identityProperties: ['type', 'instancespecs']});
 // These answer fixed values, and so they don't need to be computed by a method or Rule.
 // But they are properties of an instance, and can be overridden with different values, or even by subclass rules.
 // They're on prototype here instead of taking up space in each instance if they were set by the constructor.

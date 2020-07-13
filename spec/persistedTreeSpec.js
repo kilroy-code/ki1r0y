@@ -1,5 +1,5 @@
 "use strict";
-var Tree = require('../tree');
+var Persistable = require('../persistable');
 
 class InMemoryStore {
   constructor() {
@@ -16,13 +16,13 @@ class InMemoryStore {
   }
 }
 
-describe('Tree', function () {
-  class Node extends Tree {
+describe('PersistedTree', function () {
+  class Node extends Persistable {
     name(self) { return ''; }
   }
   beforeAll(function () {
     Node.register();
-    Tree.configure({store: new InMemoryStore});
+    Persistable.configure({store: new InMemoryStore});
   });
   describe('example', function () {
     it('restores what it saves, and responds to change.', async function () {
@@ -32,6 +32,7 @@ describe('Tree', function () {
       root.addChild(new Node({name: 'b'}));
       let grandchild = child.addChild(new Node({name: 'a1'}));
       child.addChild(new Node({name: 'a2'}));
+      let inspect = require('util').inspect;
       
       function checkTrees(a, b) {
         expect(b.name).toBe(a.name);
@@ -41,7 +42,7 @@ describe('Tree', function () {
       }
       async function restoreAndCheck(root) {
         let idtag = root.savedId;
-        let restored = await Tree.create({idtag: idtag});
+        let restored = await Persistable.create({idtag: idtag});
         await restored.savedId;
         checkTrees(root, restored);
       }
