@@ -120,9 +120,6 @@ class Tree extends Registerable {
     // If this resets, so should children. But if the parts of children reset (e.g., from add/removeChild), this should not.
     // This is accomplished by surgically removing the children rule that are being collected even as we execute this rule method.
     this.children = undefined; // resetting all dependencies... except us!
-    // A possible alternative to the following would be to pass _internalRawChildren as a new optional child argument to add/removeChild
-    // (that defaults to the.children), above, but that would require applications that subclass to get things right.
-    // I'd rather concentrate that burden to the next four lines.
     let references = this._childrenInitialized._collectingReferences, childRule = this._children;
     for (let i = references.length; i--;) { // For speed, _collectingReferences doesn't dedupe, so gotta remove 'em all.
       if (references[i] === childRule) references.splice(i, 1);
@@ -137,20 +134,20 @@ Tree.prototype.eachChild = function (iterator, self) {
   this._internalRawChildren.slice().forEach((child, index) => iterator.call(self, child, index, this));
 }
 
-// The optional argument here is not "supported". It's here to make it convenient to test out
-// alternatives as described in the comments of childrenInitialized.
-Tree.prototype.addChild = function (child, children = this.children) {
+Tree.prototype.addChild = function (child) {
   if (child.parent === this) return null; // Don't change order in children if already present.
   if (child.parent) { child.parent.removeChild(child); }
   child.parent = this;
 
+  let children = this.children;
   children.push(child);
   return child;
 };
-Tree.prototype.removeChild = function (child, children = this.children) {
+Tree.prototype.removeChild = function (child) {
   if (child.parent !== this) return null; // Not an error.
   child.parent = undefined;
 
+  let children = this.children;
   children.splice(children.indexOf(child), 1);
   return child;
 };

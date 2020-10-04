@@ -39,8 +39,8 @@ describe('Tree', function () {
       class MyTree extends Tree {
         static added = 0;
         static removed = 0;
-        addChild(child, ...more) { this.constructor.added++; return super.addChild(child, ...more); }
-        removeChild(child, ...more) { this.constructor.removed++; return super.removeChild(child, ...more); }
+        addChild(child) { this.constructor.added++; return super.addChild(child); }
+        removeChild(child) { this.constructor.removed++; return super.removeChild(child); }
       }
       MyTree.register({ownRuleProperties: []});
       let parent = new MyTree({specs: [{type: 'MyTree'}, {type: 'MyTree'}]});
@@ -322,9 +322,9 @@ describe('Tree', function () {
       referencingRule() {
         return this.childrenInitialized;
       }
-      addChild(child, ...more) {
+      addChild(child) {
         added.push(child.foo);
-        return super.addChild(child, ...more);
+        return super.addChild(child);
       }
     }
     Loggable.register({nonRules: ['constructor', 'toString']});
