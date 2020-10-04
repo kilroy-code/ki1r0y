@@ -9,14 +9,14 @@ describe('DisplayController', function () {
       update() { return this.display.update(`name: ${this.entity.name}`); }
       resetDisplay() { SomeExternalDisplayMechanism.remove(this.display); return super.resetDisplay(); }
     }
+    class Displayer extends ControllerForSomeExternalDisplayMechanism {
+    }
     class Editor extends ControllerForSomeExternalDisplayMechanism {
       display(self) { // Attach a handler to the display object.
         let display = super.__display(self);
         display.changeName = string => this.entity.name = string;
         return display;
       }
-    }
-    class Displayer extends ControllerForSomeExternalDisplayMechanism {
     }
     class Node extends Registerable {
       name() { return ''; }
@@ -53,12 +53,14 @@ describe('DisplayController', function () {
       let name = 'foo',
           node = new Node({name: name});
       node.readOnlyView;
-      node.editorView.display.changeName('bar');
       process.nextTick(_ => {
-        let label = `name: ${node.name}`;
-        node.readOnlyView;
-        expect(SomeExternalDisplayMechanism.getContent()).toBe(`Displayer: ${label}, Editor: ${label}`);
-        done();
+        node.editorView.display.changeName('bar');
+        process.nextTick(_ => {
+          let label = `name: ${node.name}`;
+          node.readOnlyView;
+          expect(SomeExternalDisplayMechanism.getContent()).toBe(`Displayer: ${label}, Editor: ${label}`);
+          done();
+        });
       });
     });
     it('a change of entity changes what is shown.', function (done) {

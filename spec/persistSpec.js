@@ -2,6 +2,10 @@
 var Persistable = require('../persistable');
 var Rule = require('@kilroy-code/rules');
 
+// Note: children and rules that stem from it (such as identitySpec and savedId)
+// may initially be promises. It doesn't matter to a rule, but for
+// expectations outside of rules, it's best to await their value.
+
 class InMemoryStore {
   constructor() {
     this.db = {unspecified: {}};
@@ -32,11 +36,16 @@ describe('Persistable', function () {
         foo: 33,
         bar: 17
       });
-      let id = await instance1.savedId;
+      //console.log('fixme getting savedId');
+      let id = instance1.savedId;
+      //console.log('fixme id:', id);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      //console.log('fixme now id:', id);
+      //console.log('fixme saveId:', instance1.savedId);      
       expect(instance1.foo).toBe(33); // Rule was overriden.
       expect(instance1.bar).toBe(17); // Ditto.
       expect(instance1.baz).toBe(17); // Computed.
-      
+
       let instance2 = await Persistable.create({idtag: id, bar: 99, baz: -1});
       expect(instance2.foo).toBe(33); // From persistence.
       expect(instance2.bar).toBe(99); // Persistence overriden.
@@ -88,8 +97,10 @@ describe('Persistable', function () {
   describe('api', function () {
 
     describe('constructor', function () {
-      it('can have empty arguments.', function () {
-        expect(new Persistable().identitySpec).toEqual({type: 'Persistable'});
+      it('can have empty arguments.', async function (done) {
+        let identity = await new Persistable().identitySpec;
+        expect(identity).toEqual({type: 'Persistable'});
+        done();
       });
       it('accepts properties that override rules.', function () {
         let obj = {foo: 3};
@@ -225,16 +236,16 @@ describe('Persistable', function () {
       });
 
       describe('configure', function () {
-        it('is a function that takes an object with a store property.', function () {
+        it('is a function that takes an object with a store property.',function () {
           let myStorage = 'my-store';
           Persistable.configure({store: myStorage});
           expect(Persistable.store).toBe(myStorage);
         });
-        it('accepts a function(collectionName, requestedId, string) as store.save.', function () {
+        it('accepts a function(collectionName, requestedId, string) as store.save.', async function (done) {
           let instance = new Persistable(),
               collection = instance.collectionName,
               id = instance.requestedIdForSaving,
-              identity = instance.identitySpec,
+              identity = await instance.identitySpec,
               finalId = 17;
           function mySave(collectionName, requestedId, identityString) {
             expect(collectionName).toBe(collection);
@@ -245,7 +256,9 @@ describe('Persistable', function () {
             return finalId;
           }
           Persistable.configure({store: {save: mySave}});
-          expect(instance.savedId).toBe(finalId);
+          let savedId = await instance.savedId;
+          expect(savedId).toBe(finalId);
+          done();
         });
       });
       describe('types', function () {
@@ -261,7 +274,7 @@ describe('Persistable', function () {
     describe('ordinary (non-Rule) property', function () {
       describe('identityProperties', function () {
         it('lists type.', function () {
-          expect(new Persistable().identityProperties).toEqual(['type', 'instancespecs']);
+          expect(new Persistable().identityProperties).toEqual(['type', 'specs']);
         });
       });
       describe('requestedIdForSaving', function () {
@@ -294,22 +307,24 @@ describe('Persistable', function () {
       });
 
       describe('identitySpec', function () {
-        it('answers an object with the keys specified by identityProperties.', function () {
-          let gathered = new Persistable().identitySpec;
+        it('answers an object with the keys specified by identityProperties.', async function (done) {
+          let gathered = await new Persistable().identitySpec;
           expect(gathered.type).toBe('Persistable');
+          done();
         });
-        it('includes extra properties if identityProperties does.', function () {
+        it('includes extra properties if identityProperties does.', async function (done) {
           class MyPersistable extends Persistable {
             one() { return 1; }
             bar() { return 'bar'; }
           }
           MyPersistable.register({ownIdentityProperties: ['one', 'bar']});
-          let gathered = new MyPersistable().identitySpec;
+          let gathered = await new MyPersistable().identitySpec;
           expect(gathered.type).toBe('MyPersistable');
           expect(gathered.one).toBe(1);
-          expect(gathered.bar).toBe('bar');          
+          expect(gathered.bar).toBe('bar');
+          done();
         });
-        it('does not include default values.', function () {
+        it('does not include default values.', async function (done) {
           class MyPersistable extends Persistable {
             zero() { return 0; }            
             one() { return 1; }
@@ -321,7 +336,7 @@ describe('Persistable', function () {
             object() { return { undefined: undefined} }
           }
           MyPersistable.register();
-          let gathered = new MyPersistable().identitySpec;
+          let gathered = await new MyPersistable().identitySpec;
           expect(gathered).toEqual({
             type: 'MyPersistable',
             one: 1,
@@ -329,6 +344,41 @@ describe('Persistable', function () {
             array: [ 0 ],
             object: { undefined: undefined }
           });
+          done();
+        });
+        it('can be reconstructed if one supplies a rule for instancespec.', async function (done) {
+          class ManagedTree extends Persistable {
+            static instances = {};
+            static currentKey = 1;
+            instancespec() {
+              let key = this.constructor.currentKey++;
+              this.constructor.instances[key] = this;
+              return {idtag: key};
+            }
+            static create({idtag, ...properties}) {
+              if (idtag) {
+                return ManagedTree.instances[idtag];
+              }
+              return super.create(properties);
+            }
+          }
+          ManagedTree.register();
+          let c1 = {type: 'ManagedTree', foo: 'c1'},
+              c2 = {type: 'ManagedTree', foo: 'c2'};
+          let original = new ManagedTree({type: 'ManagedTree', foo: 'p1', specs: [c1, c2]});
+          expect(original.foo).toBe('p1');        
+          expect(await original.specs).toEqual([{idtag: 1}, {idtag: 2}]);
+          let children = original.children;
+          expect(children[0].foo).toBe('c1');
+          expect(children[1].foo).toBe('c2');
+
+          let shallowCopy = new ManagedTree({foo: 'p2', specs: original.specs});
+          expect(shallowCopy.foo).toBe('p2');
+          expect(await shallowCopy.specs).toEqual([{idtag: 1}, {idtag: 2}]);
+          children = shallowCopy.children;
+          expect(children[0].foo).toBe('c1');
+          expect(children[1].foo).toBe('c2');
+          done();
         });
       });
 

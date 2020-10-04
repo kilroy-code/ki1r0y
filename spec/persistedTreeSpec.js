@@ -25,18 +25,18 @@ describe('PersistedTree', function () {
     Persistable.configure({store: new InMemoryStore});
   });
   describe('example', function () {
-    it('restores what it saves, and responds to change.', async function () {
+    it('restores what it saves, and responds to change.', async function (done) {
 
       let root = new Node({name: 'root'});
       let child = root.addChild(new Node({name: 'a'}));
       root.addChild(new Node({name: 'b'}));
       let grandchild = child.addChild(new Node({name: 'a1'}));
       child.addChild(new Node({name: 'a2'}));
-      let inspect = require('util').inspect;
       
       function checkTrees(a, b) {
         expect(b.name).toBe(a.name);
-        for (let i = 0, childA = a.children[i], childB = b.children[i]; i < a.children.length; i++) {
+        for (let i = 0; i < a.children.length; i++) {
+          let childA = a.children[i], childB = b.children[i];
           checkTrees(childA, childB);
         }
       }
@@ -52,6 +52,7 @@ describe('PersistedTree', function () {
       child.name = 'aModified';
       grandchild.name = 'a1Modified';
       restoreAndCheck(root);
+      done();
     });
   });
 });

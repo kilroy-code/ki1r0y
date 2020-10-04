@@ -24,6 +24,9 @@ class Persistable extends Tree {
   }
 
   // Unpickling.
+    // FIXME: Where, if at all, do we protect aginst unrecognized inputs? E.g., the properties not matching the hash in a spoofing attack?
+    // Is checking at storage time good enough in a p2p dht, or do we need to check input from gossip network (and is there enough info
+    // to do so there?  Wherever we do so, can we explicitly allow and ignore (multiple) 'comment' properties?
   static collectionName(idtag) {
     return 'unspecified';
   }
@@ -56,7 +59,7 @@ class Persistable extends Tree {
     return this._isEmptyObject(value);
   }
   static _isEmptyObject(obj) { // Much faster than !Object.keys(obj).length
-    for (let x in obj) { return false; }
+    for (let x in obj) { if (obj.hasOwnProperty(x)) return false; }
     return true;
   }
   type() {
@@ -66,9 +69,19 @@ class Persistable extends Tree {
     return this._gatherProperties(this.identityProperties);
   }
   instancespec() {
+    //console.log('fixme computing instancespec');    
     return this.savedId; // todo: generalize with gatherProperties and inputs
-  } 
+  }
+  specs() {
+    //console.log('fixme computing specs');
+    this.childrenInitialized;
+    //console.log('fixme while computing specs, childrenInitialized', this.children);    
+    let specs = this.children.map(child => child.instancespec);
+    //console.log('fixme while computing specs, specs', specs);
+    return specs;
+  }  
   savedId() {
+    //console.log('fixme computing savedId');        
     return this.constructor.store.save(this.collectionName,
                                        this.requestedIdForSaving,
                                        JSON.stringify(this.identitySpec));
@@ -79,7 +92,7 @@ Persistable.store = { // No ES6 static properties in webpack yet.
   retrieve: this._noStore
 };
 
-Persistable.register({identityProperties: ['type', 'instancespecs']});
+Persistable.register({identityProperties: ['type', 'specs']});
 // These answer fixed values, and so they don't need to be computed by a method or Rule.
 // But they are properties of an instance, and can be overridden with different values, or even by subclass rules.
 // They're on prototype here instead of taking up space in each instance if they were set by the constructor.
