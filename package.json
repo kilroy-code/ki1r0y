@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@kilroy-code/rules": "^0.1",
+    "@kilroy-code/rules": "^0.2.0",
     "browserify": "^16.5.1",
     "jasmine": "^3.5.0"
   },
