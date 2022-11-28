@@ -1,11 +1,9 @@
 {
   "name": "ki1r0y",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "start": "node ./bin/www.mjs",
     "test": "jasmine",
-    "setup": "cd public; ln -s ../node_modules/@kilroy-code .; mkdir jasmine-standalone-4.5.0; cd jasmine-standalone-4.5.0; curl -L -o ./jasmine.zip https://github.com/jasmine/jasmine/releases/download/v4.5.0/jasmine-standalone-4.5.0.zip; unzip jasmine.zip",
     "npm-links-to-public": "npm link public/@kilroy-code/*"
   },
   "devDependencies": {
