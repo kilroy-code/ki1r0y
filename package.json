@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node ./bin/www.mjs",
     "test": "jasmine",
-    "setup": "npm run link-browser-packages",
+    "setup": "ln -s ../node_modules/@kilroy-code .",
     "link-browser-packages": "ln -s ../../node_modules/nanoid/index.browser.js public/javascripts/nanoid.mjs; ln -s ../../node_modules/uuid4/browser.mjs public/javascripts/uuid4.mjs",
     "npm-links-to-public": "npm link public/@kilroy-code/*"
   },

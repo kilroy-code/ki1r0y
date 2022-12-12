@@ -3,7 +3,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import compression from 'compression';
-import { ki1r0yError, ClientError } from './public/@kilroy-code/utilities/errors.mjs';
+import { ki1r0yError, ClientError } from '@kilroy-code/utilities/errors.mjs';
 
 const app = express();
 export default app;
