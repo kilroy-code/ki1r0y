@@ -6,7 +6,9 @@
     "stop": "pkill ki1r0y",
     "firstTime": "npm run setup && npm start",
     "test": "jasmine",
-    "setup": "ln -s ../node_modules/@kilroy-code .",
+    "setup": "ln -s ../node_modules/@kilroy-code public",
+    "background": "npm stop; (npm start 1>serverTest.log &)",
+    "smoke": "npm run setup && npm run background && npm test && npm stop",
     "link-browser-packages": "ln -s ../../node_modules/nanoid/index.browser.js public/javascripts/nanoid.mjs; ln -s ../../node_modules/uuid4/browser.mjs public/javascripts/uuid4.mjs",
     "npm-links-to-public": "npm link public/@kilroy-code/*"
   },
