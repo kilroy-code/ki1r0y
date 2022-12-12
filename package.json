@@ -1,5 +1,5 @@
 {
-  "name": "ki1r0y",
+  "name": "@kilroy-code/ki1r0y",
   "version": "0.0.1",
   "scripts": {
     "start": "node ./bin/www.mjs",
