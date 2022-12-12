@@ -48,41 +48,76 @@ Each of the modules do make use of modern Javascript constructs. If you learned 
 
 ### Modeling
 
-- **[rules](https://github.com/kilroy-code/rules)** ![](public/images/stable.png) - Makes Javascript object properties work like the cells of spreadsheets. This is the secret-sauce that allows small behaviors from different authors to be combined interactively, even though they were written for different applications.
-- **[blocks](https://github.com/kilroy-code/blocks)** ![](public/images/experimental.png) - Integrates rules, croquet, and tree-structured assemblies.
-- **[composition](https://github.com/kilroy-code/composition)** ![](public/images/experimental.png) - Framework for creating a tree of synchronized block content with an associated user-specific tree of rule-based displays.
+- **[rules](https://github.com/kilroy-code/rules)** 
+![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/rules/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/rules/actions/workflows/npm-test.yml) - 
+Makes Javascript object properties work like the cells of spreadsheets. This is the secret-sauce that allows small behaviors from different authors to be combined interactively, even though they were written for different applications.
+- **[blocks](https://github.com/kilroy-code/blocks)** 
+![](public/images/experimental.png) 
+[![npm test](https://github.com/kilroy-code/blocks/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/blocks/actions/workflows/npm-test.yml) -
+Integrates rules, croquet, and tree-structured assemblies.
+- **[compositions](https://github.com/kilroy-code/compositions)** 
+![](public/images/experimental.png) 
+[![npm test](https://github.com/kilroy-code/compositions/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/compositions/actions/workflows/npm-test.yml) - 
+Framework for creating a tree of synchronized block content with an associated user-specific tree of rule-based displays.
 
 ### Nouns
 
-- **[nodes](https://github.com/kilroy-code/nodes)** ![](public/images/experimental.png) - The nouns that display, get manipulated, and persist in ki1r0y.
-- **[display2d]()** ![](public/images/prototyped.png) - A blocks-based wrapper around Material Design, in which the ki1r0y UI and 2d user content are built. (A display3d is also planned, but not part of the ki1r0y [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product).)
+- **[nodes](https://github.com/kilroy-code/nodes)** 
+-![](public/images/experimental.png) 
+[![npm test](https://github.com/kilroy-code/nodes/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/nodes/actions/workflows/npm-test.yml) - 
+The nouns that display, get manipulated, and persist in ki1r0y.
+- **[display2d]()** 
+![](public/images/prototyped.png) - A blocks-based wrapper around Material Design, in which the ki1r0y UI and 2d user content are built. (A display3d is also planned, but not part of the ki1r0y [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product).)
 
 ### Verbs
 
-- **[actions]()** ![](public/images/intended.png) - The verbs of ki1r0y are implemented as nouns that do something, attached to blocks.
-- **[edit-text]()** ![](public/images/prototyped.png) - Lightweight [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG) editing, but multi-user and always available throughout the UI. (There is no edit mode or edit forms.)
-- **[edit-nodes]()** ![](public/images/prototyped.png) - Everything shown is a reified object that can be moved around interactively. Some of the things that can be moved are affordances that interactively change the shape, size, or orientation of what they are attached to.
-- **[transfer]()** ![](public/images/prototyped.png) - Move, copy, and link from any ki1r0y composition, or from other systems.
+- **[actions]()** 
+![](public/images/intended.png) - The verbs of ki1r0y are implemented as nouns that do something, attached to blocks.
+- **[edit-text]()** 
+![](public/images/prototyped.png) - Lightweight [WYSIWYG](https://en.wikipedia.org/wiki/WYSIWYG) editing, but multi-user and always available throughout the UI. (There is no edit mode or edit forms.)
+- **[edit-nodes]()** 
+![](public/images/prototyped.png) - Everything shown is a reified object that can be moved around interactively. Some of the things that can be moved are affordances that interactively change the shape, size, or orientation of what they are attached to.
+- **[transfer]()** 
+![](public/images/prototyped.png) - Move, copy, and link from any ki1r0y composition, or from other systems.
 
 ### Persistance
 
-- **[authentication]()** ![](public/images/intended.png) - Instead of centralized accounts, all persistent storage is based on [Public-Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), so that anyone can sign an artifact, and anyone can check it.
-- **[storage](https://github.com/kilroy-code/storage)** ![](public/images/experimental.png) - When an action is completed, all and only the changed blocks are persisted, where they are available for going back to earlier versions, and for third-party applications.
+- **[authentication]()** 
+![](public/images/intended.png) - Instead of centralized accounts, all persistent storage is based on [Public-Key Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), so that anyone can sign an artifact, and anyone can check it.
+- **[storage](https://github.com/kilroy-code/storage)** 
+![](public/images/experimental.png) 
+[![npm test](https://github.com/kilroy-code/storage/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/storage/actions/workflows/npm-test.yml) - 
+When an action is completed, all and only the changed blocks are persisted, where they are available for going back to earlier versions, and for third-party applications.
 
 ### Application
 
-- **[share]()** ![](public/images/prototyped.png) - Tools for sharing on social media and external search engines. 
-- **[graffito]()** ![](public/images/intended.png) - The [Medium](https://medium.com/)-like application of all the above, with displays for avatars, chat, inspection of objects, and related content.
+- **[share]()** 
+![](public/images/prototyped.png) - Tools for sharing on social media and external search engines. 
+- **[graffito]()** 
+![](public/images/intended.png) - The [Medium](https://medium.com/)-like application of all the above, with displays for avatars, chat, inspection of objects, and related content.
 
 
 
 ### Scaffolding
 
-- **[garbage-collection]()** ![](public/images/prototyped.png) - A realtime background GC that I've previously written so that stale versions of objects (and their media) can be removed from storage.
-- **[croquet-in-memory](https://github.com/kilroy-code/croquet-in-memory)** ![](public/images/stable.png) - A sloppy implementation of some of the Croquet API that only supports one user, with no server and no persistence, and is used in unit tests.
-- **[api-key](https://github.com/kilroy-code/api-key)** ![](public/images/stable.png) - A trivial mechanism for a browser app or test suite to get a use key for an API (such as for Croquet), without embedding keys in source code.
-- **[hidden-tab-simulator](https://github.com/kilroy-code/hidden-tab-simulator)** ![](public/images/stable.png) - Machinery to simulate a browser tab being hidden or being revealed, for use in unit tests.
-- **[utilities](https://github.com/kilroy-code/utilities)** ![](public/images/experimental.png) - Shared code.## Design Values
+- **[garbage-collection]()** 
+![](public/images/prototyped.png) - A realtime background GC that I've previously written so that stale versions of objects (and their media) can be removed from storage.
+- **[croquet-in-memory](https://github.com/kilroy-code/croquet-in-memory)** 
+![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml) - 
+A sloppy implementation of some of the Croquet API that only supports one user, with no server and no persistence, and is used in unit tests.
+- **[api-keys](https://github.com/kilroy-code/api-keys)** 
+![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/api-keys/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/api-keys/actions/workflows/npm-test.yml) - 
+A trivial mechanism for a browser app or test suite to get a use key for an API (such as for Croquet), without embedding keys in source code.
+- **[hidden-tab-simulator](https://github.com/kilroy-code/hidden-tab-simulator)** 
+![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/hidden-tab-simulator/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/hidden-tab-simulator/actions/workflows/npm-test.yml) - 
+Machinery to simulate a browser tab being hidden or being revealed, for use in unit tests.
+- **[utilities](https://github.com/kilroy-code/utilities)** 
+![](public/images/experimental.png) - 
+Shared code.## Design Values
 
 These are our "North Stars". 
 
