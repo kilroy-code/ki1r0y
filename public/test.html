@@ -14,30 +14,40 @@
     <!-- optional: include a file here that configures the Jasmine env -->
     <script src="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/boot1.js"></script>
 
+    <script type="importmap">
+      {
+	"imports": {
+	  "@kilroy-code/": "/@kilroy-code/",
+	  "nanoid": "/javascripts/nanoid.mjs",
+	  "uuid4": "/javascripts/uuid4.mjs"
+	}
+      }
+    </script>
+
     <script type="module">
-      import "./@kilroy-code/api-key/spec/spec.mjs";
-      import "./@kilroy-code/hidden-tab-simulator/spec/spec.mjs";
-      import "./@kilroy-code/croquet-in-memory/spec/spec.mjs";
-      import "./@kilroy-code/rules/spec/spec.mjs";
+      import "@kilroy-code/api-key/spec/spec.mjs";
+      import "@kilroy-code/hidden-tab-simulator/spec/spec.mjs";
+      import "@kilroy-code/croquet-in-memory/spec/spec.mjs";
+      import "@kilroy-code/rules/spec/spec.mjs";
 
-      import './@kilroy-code/block/spec/assemblySpec.mjs';
-      import './@kilroy-code/block/spec/modelSpec.mjs';
-      import './@kilroy-code/block/spec/viewSpec.mjs';
-      import './@kilroy-code/block/spec/blockSpec.mjs';
-      import './@kilroy-code/block/spec/croquetBlockSpec.mjs';
+      import '@kilroy-code/block/spec/assemblySpec.mjs';
+      import '@kilroy-code/block/spec/modelSpec.mjs';
+      import '@kilroy-code/block/spec/viewSpec.mjs';
+      import '@kilroy-code/block/spec/blockSpec.mjs';
+      import '@kilroy-code/block/spec/croquetBlockSpec.mjs';
 
-      import "./@kilroy-code/storage/spec/identitySpec.mjs";
-      import "./@kilroy-code/storage/spec/spec.mjs";
-      import "./@kilroy-code/storage/spec/restSpec.mjs";
+      import "@kilroy-code/storage/spec/identitySpec.mjs";
+      import "@kilroy-code/storage/spec/spec.mjs";
+      import "@kilroy-code/storage/spec/restSpec.mjs";
       
-      import "./@kilroy-code/nodes/spec/registerableSpec.mjs";
-      import "./@kilroy-code/nodes/spec/treeSpec.mjs";
-      import "./@kilroy-code/nodes/spec/displayControllerSpec.mjs";
+      import "@kilroy-code/nodes/spec/registerableSpec.mjs";
+      import "@kilroy-code/nodes/spec/treeSpec.mjs";
+      import "@kilroy-code/nodes/spec/displayControllerSpec.mjs";
       // fixme: need domSpec
       //import "./@kilroy-code/nodes/spec/mdcSpec.mjs";
       //import "./@kilroy-code/replicator-base/spec/spec.mjs"
 
-      import './@kilroy-code/composition/spec/compositionSpec.mjs';
+      import '@kilroy-code/composition/spec/compositionSpec.mjs';
     </script>
   </head>
   <body>

@@ -4,11 +4,15 @@ I am developing ki1r0y.com, where people will be able to create and share their 
 
 Eventually, there will be a set of introductions from various perspectives, with live demonstrations:
 
-- **Metaverse**: ki1r0y applies metaverse principles of user agency, communication, and realtime collaboration to everything, including text.
+- **Metaverse**: ki1r0y applies metaverse principles of user agency, communication, and realtime collaboration to everything - even to text-oriented "compositions" (a generalization of pages, scenes, and single-page apps).
 - **Attribution Culture**: ki1r0y makes it easy to create, share, and find content, with attibution to the creator and antecedents. This is not just for credit and IP, but also for fighting disinformation.
+- **Security and Privacy**: ki1r0y pervasively uses modern security techniques, such as hashing, signing, and encryption, as are used for the same purposes in communication and blockchain. If a composition is private, it is only accessible to the individual or team that owns it - and not to the operators of ki1r0y.
 - **UX**: kilr0y uses undoable direct manipulation, mobile-friendly gestures, voice, and deep copy/paste. Rather than menus, a "perpetual search ui" provides objects and actions in an accessible way (which will be compatible with emerging ubiquitous-computing devices).
-- **Cryptogrphy**: ki1r0y pervasively uses modern security techniques, such as used for the same purposes in communication and blockchain.
-- **Computer Science**: ki1r0y is based on a small handful of elevated concepts from well-established research on distributed systems, expert systems, and security.
+- **Computer Science**: ki1r0y is based on a small handful of elevated concepts:
+  - The properties of a ki1r0y "block" are like named cells in a **spreadsheet**: formulas are inspectable, everything is live with no separate edit/load cycle, and the computer automatically updates all and only those properties that are effected by a change.
+  - Interactive changes are synchronized among all users with **croquet**: a block is a computational robot sitting in each present user's browser, and making the same changes at the same time in response to messages. Messages are only initiated by users and there are much fewer of them than, e.g., "updates from the server" in a game. In fact, there is no application server at all!
+  - ki1r0y blocks have a similar **tree structure** as directories with files. This structure is used for inheritance (part-whole, rather than kind-of inheritance), fine-grained addressing as URLs, and serialization.
+  - Blocks are **cryptographically signed** by the user that changed them, allowing anyone to check their provenance without being dependent on any server.
 
 This README describes the constituent [Modules](#modules) and [Design Values](#design-values).
 
@@ -19,14 +23,16 @@ The ki1r0y machinery described on this page is made from a number of open-source
 
 Each of the modules do make use of modern Javascript constructs. If you learned Javascript a long time ago, you'll need to be familiar with these:
 
-- [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) - [ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview) modules are supported in all modern browsers and in NodeJS. We use these _directly_, _without_ requiring preprocessors such as [Babel](https://babeljs.io/) or [Webpack](https://webpack.js.org/). However, to do this, we use the [`.mjs` file extension](https://www.google.com/search?q=.mjs+vs+.js) for Javascript files, rather than `.js`.
+- [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) - [ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview) modules are supported in all modern browsers and in NodeJS. We use these _directly_, _without_ requiring transpiling preprocessors such as [Babel](https://babeljs.io/) or [Webpack](https://webpack.js.org/). However, to do this, we use the [`.mjs` file extension](https://www.google.com/search?q=.mjs+vs+.js) for Javascript files, rather than `.js`.
+  - The ki1r0y packages are [scoped](https://docs.npmjs.com/misc/scope) as [`@kiroy-code`](https://github.com/kilroy-code). To find these, you may need `@kilroy-code:registry=https://npm.pkg.github.com/kilroy-code` in your [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc).
+  - To use ki1r0y packages in a Web page, you can use relative import paths and you can use a transpiler. To use them with naked absolute module names (e.g., `import {Rule} from '@kilroy-code/rules'`, rather than from `'./@kilroy-code/...'`), it may be convenient to use [import-map](https://www.google.com/search?q=es+module+importmap&oq=es+module+importmap), which is not yet supported in all browsers (but is supported in upcoming versions of all non-IE browsers).
 - [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) and [mixins](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#mix-ins) - We use mixins in our modules so that the base classes are not baked in. This allows us to develop and test modules independently of all the rest of our code, and it allows others to use the modules in non-ki1r0y projects.
 - [getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) - properties that compute. Additionally, our [Rules](#modeling) module uses Javascript [introspection](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors) to automatically recognize getters, which helps us get rid of boilerplate in our code (without needing preprocessing of decorators).
-- [async/await and Promises](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous) - The useful thing to remember is that in browsers and in the server, all the application code is in the same thread. Calls out to system functions (e.g., for networking) are run in different threads (allowing any suspended application code to run); going back to the application thread when the application's fulfillment code is called.
+- [async/await and Promises](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous) - The useful thing to remember is that in browsers and in the server, all the application code is in the same thread. Calls out to system functions (e.g., for networking) are run in different threads (allowing any suspended application code to run), going back to the application thread when the application's fulfillment code is called.
 - readability:
-  - [destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - <code>let **{p1, p2}** = this, **[e0, e1]** = that;</code>rather than <code>let **p1** = this**.p1**, **p2** = this.**p2**, **e0** = that**[0]**, **e1** = that**[1]**;</code>
+  - [destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - <code>let **{p1, p2}** = this, **[e0, e1]** = that;</code>rather than <code>let **p1 = this.p1** , **p2 = this.p2** , **e0 = that[0]** , **e1 = that[1]** ;</code>
   - [shorthand property names](https://search.brave.com/search?q=javascript+shorthand+property+names) - <code>let x=1, y=2; foo(**{x, y}**)</code> rather than <code>let x=1, y=2; foo(**{x:x, y:y}**);</code>
-  - [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) - <code>function doubleFirst(x, **...rest**) { doSomething(x*2, **...rest**); }</code> rather than <code>function doubleFirst(x) { doSomething.**apply**(null, [2*x].concat( **Array.from(arguments).slice(1)** )); }</code>
+  - [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) - <code>function doubleFirst(x, **...rest** ) { doSomething(x*2, **...rest** ); }</code> rather than <code>function doubleFirst(x) { doSomething.**apply**(null, [2*x].concat( **Array.from(arguments).slice(1)** )); }</code>
   - [fat-arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) - <code>class Foo { method() { frob(**element => this.frazzle(element)**); }}</code> rather than <code>class Foo { method() { **let that=this;** frob(**function (element) { return that.frazzle(element); }**); }}</code>
   - [template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) -  `` `The answer is ${computeSomething()}.` ``
 
@@ -43,7 +49,8 @@ Each of the modules do make use of modern Javascript constructs. If you learned 
 ### Modeling
 
 - **[rules](https://github.com/kilroy-code/rules)** ![](public/images/stable.png) - Makes Javascript object properties work like the cells of spreadsheets. This is the secret-sauce that allows small behaviors from different authors to be combined interactively, even though they were written for different applications.
-- **[blocks](https://github.com/kilroy-code/blocks)** ![](public/images/experimental.png) - The current version is not what I want. It successfully integrates rules and croquet, but I don't like how it handles hierarchy and display objects.
+- **[blocks](https://github.com/kilroy-code/blocks)** ![](public/images/experimental.png) - Integrates rules, croquet, and tree-structured assemblies.
+- **[composition](https://github.com/kilroy-code/composition)** ![](public/images/experimental.png) - Framework for creating a tree of synchronized block content with an associated user-specific tree of rule-based displays.
 
 ### Nouns
 
