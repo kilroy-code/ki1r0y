@@ -1,4 +1,4 @@
-# ki1r0y
+# ki1r0y [![npm test](https://github.com/kilroy-code/ki1r0y/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/ki1r0y/actions/workflows/npm-test.yml)
 
 I am developing ki1r0y.com, where people will be able to create and share their own applications, long or tiny articles, marketplaces, 3d worlds, and whatever else they want. There is no site to see yet. 
 
