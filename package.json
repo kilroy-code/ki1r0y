@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "node ./bin/www.mjs",
+    "stop": "pkill ki1r0y",
+    "firstTime": "npm run setup && npm start",
     "test": "jasmine",
     "setup": "ln -s ../node_modules/@kilroy-code .",
     "link-browser-packages": "ln -s ../../node_modules/nanoid/index.browser.js public/javascripts/nanoid.mjs; ln -s ../../node_modules/uuid4/browser.mjs public/javascripts/uuid4.mjs",
