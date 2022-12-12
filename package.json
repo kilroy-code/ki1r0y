@@ -12,6 +12,22 @@
     "link-browser-packages": "ln -s ../../node_modules/nanoid/index.browser.js public/javascripts/nanoid.mjs; ln -s ../../node_modules/uuid4/browser.mjs public/javascripts/uuid4.mjs",
     "npm-links-to-public": "npm link public/@kilroy-code/*"
   },
+  "author": {
+    "name": "Howard Stearns",
+    "email": "howard@ki1r0y.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kilroy-code/ki1r0y.git"
+  },
+  "homepage": "https://github.com/kilroy-code/ki1r0y#readme",
+  "bugs": {
+    "url": "https://github.com/kilroy-code/ki1r0y/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "devDependencies": {
     "@kilroy-code/hidden-tab-simulator": "^0.0.3",
     "jasmine": "^4.5.0"
