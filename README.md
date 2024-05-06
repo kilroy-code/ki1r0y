@@ -7,14 +7,14 @@ Eventually, there will be a set of introductions from various perspectives, with
 - **Metaverse**: ki1r0y applies metaverse principles of user agency, communication, and realtime collaboration to everything - even to text-oriented "compositions" (a generalization of pages, scenes, and single-page apps).
 - **Attribution Culture**: ki1r0y makes it easy to create, share, and find content, with attibution to the creator and antecedents. This is not just for credit and IP, but also for fighting disinformation.
 - **Security and Privacy**: ki1r0y pervasively uses modern security techniques, such as hashing, signing, and encryption, as are used for the same purposes in communication and blockchain. If a composition is private, it is only accessible to the individual or team that owns it - and not to the operators of ki1r0y.
-- **UX**: kilr0y uses undoable direct manipulation, mobile-friendly gestures, voice, and deep copy/paste. Rather than menus, a "perpetual search ui" provides objects and actions in an accessible way (which will be compatible with emerging ubiquitous-computing devices).
+- **UX**: kilr0y uses undoable direct manipulation, mobile-friendly gestures, voice, and deep copy/paste. Rather than menus, a "perpetual search UI" provides objects and actions in an accessible way (which will be compatible with emerging ubiquitous-computing devices).
 - **Computer Science**: ki1r0y is based on a small handful of elevated concepts:
   - The properties of a ki1r0y "block" are like named cells in a **spreadsheet**: formulas are inspectable, everything is live with no separate edit/load cycle, and the computer automatically updates all and only those properties that are effected by a change.
-  - Interactive changes are synchronized among all users with **croquet**: a block is a computational robot sitting in each present user's browser, and making the same changes at the same time in response to messages. Messages are only initiated by users and there are much fewer of them than, e.g., "updates from the server" in a game. In fact, there is no application server at all!
+  - Interactive changes are synchronized among all users using **croquet**: a block is a computational robot sitting in each present user's browser, and making the same changes at the same time in response to messages. Messages are only initiated by users and there are much fewer of them than, e.g., "updates from the server" in a game. In fact, there is no centralized application server at all!
   - ki1r0y blocks have a similar **tree structure** as directories with files. This structure is used for inheritance (part-whole, rather than kind-of inheritance), fine-grained addressing as URLs, and serialization.
   - Blocks are **cryptographically signed** by the user that changed them, allowing anyone to check their provenance without being dependent on any server.
 
-This README describes the constituent [Modules](#modules) and [Design Values](#design-values).
+This README describes the constituent [Modules](#modules), and the overarching [Design Values](#design-values).
 
 
 ## Modules
@@ -25,7 +25,7 @@ Each of the modules do make use of modern Javascript constructs. If you learned 
 
 - [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) - [ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript/JavaScript_technologies_overview) modules are supported in all modern browsers and in NodeJS. We use these _directly_, _without_ requiring transpiling preprocessors such as [Babel](https://babeljs.io/) or [Webpack](https://webpack.js.org/). However, to do this, we use the [`.mjs` file extension](https://www.google.com/search?q=.mjs+vs+.js) for Javascript files, rather than `.js`.
   - The ki1r0y packages are [scoped](https://docs.npmjs.com/misc/scope) as [`@kiroy-code`](https://github.com/kilroy-code). To find these, you may need `@kilroy-code:registry=https://npm.pkg.github.com/kilroy-code` in your [`.npmrc`](https://docs.npmjs.com/cli/v9/configuring-npm/npmrc).
-  - To use ki1r0y packages in a Web page, you can use relative import paths and you can use a transpiler. To use them with naked absolute module names (e.g., `import {Rule} from '@kilroy-code/rules'`, rather than from `'./@kilroy-code/...'`), it may be convenient to use [import-map](https://www.google.com/search?q=es+module+importmap&oq=es+module+importmap), which is not yet supported in all browsers (but is supported in upcoming versions of all non-IE browsers).
+  - To use ki1r0y packages in a Web page, you can use relative import paths and you can use a transpiler. To use them naked, without a transpiler, and with absolute module names (e.g., `import {Rule} from '@kilroy-code/rules'`, rather than from `'./@kilroy-code/...'`), it may be convenient to use [import-map](https://www.google.com/search?q=es+module+importmap&oq=es+module+importmap), which is not yet supported in all browsers (but is supported in upcoming versions of all non-IE browsers).
 - [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) and [mixins](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#mix-ins) - We use mixins in our modules so that the base classes are not baked in. This allows us to develop and test modules independently of all the rest of our code, and it allows others to use the modules in non-ki1r0y projects.
 - [getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get) and [setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set) - properties that compute. Additionally, our [Rules](#modeling) module uses Javascript [introspection](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors) to automatically recognize getters, which helps us get rid of boilerplate in our code (without needing preprocessing of decorators).
 - [async/await and Promises](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous) - The useful thing to remember is that in browsers and in the server, all the application code is in the same thread. Calls out to system functions (e.g., for networking) are run in different threads (allowing any suspended application code to run), going back to the application thread when the application's fulfillment code is called.
@@ -101,8 +101,12 @@ When an action is completed, all and only the changed blocks are persisted, wher
 
 ### Scaffolding
 
+- **[signed-cloud-server](https://github.com/kilroy-code/signed-cloud-server)** - ![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/signed-cloud-server/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/jsonrpc/actions/workflows/npm-test.yml) - Basic cloud storage in which contents are cryptographically signed, using distributed-storage as a co-dependency.
 - **[garbage-collection]()** 
 ![](public/images/prototyped.png) - A realtime background GC that I've previously written so that stale versions of objects (and their media) can be removed from storage.
+- **[jsonrpc](https://github.com/kilroy-code/jsonprc)** - ![](public/images/stable.png) 
+[![npm test](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/jsonrpc/actions/workflows/npm-test.yml) - Simple, uniform, and reliable asynchronous remote procedure calls between windows, workers, and such.
 - **[croquet-in-memory](https://github.com/kilroy-code/croquet-in-memory)** 
 ![](public/images/stable.png) 
 [![npm test](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml) - 
@@ -117,14 +121,28 @@ A trivial mechanism for a browser app or test suite to get a use key for an API 
 Machinery to simulate a browser tab being hidden or being revealed, for use in unit tests.
 - **[utilities](https://github.com/kilroy-code/utilities)** 
 ![](public/images/experimental.png) - 
-Shared code.## Design Values
+Shared code.
+
+## Bias to Properties
+
+We use a lot of programming constructs in ki1r0y, but we try to think as much as we can in terms of properties on objects.
+
+**UI**: Regardless of whether the content is primarily a 3D scene, ordinary text, or flocking boids on a 2d field, ki1r0y lets users and developers see the property names and values of any content object.
+
+**Multi-user synchronization**: The content stays in perfect synchronization among multiple users through a simple model: if anyone - or any thing - changes a property, that property assignment is made in each user's browser at the same time.
+
+**Cross-property synchronization**: The value of any property may be defined by code - a formula like the cell of a spreadsheet. When the value is computed, we keep track of all the other properties that are used by that computation. When any user sets a new value, we automatically reset any an all properties that were depending on the old value. Because every property assignment is made at the same time among all the users, all the properties of all the objects stay in sync. We don't need to send massive updates of objects over the network -- just the much smaller user-initiated changses to individual property values.
+
+**Serialization**: We pickle objects a lot: 1) The content starts off in sync for each user by getting a serialized copy of all the content objects. 2) Each version of each object is saved so that we can go back to it. 3) Integrity is built from having each serialized version signed by it's author and identified by the hash of the serialization. Fortunately, is easy to capture all this in a JSON of the object's properties.
+
+## Design Values
 
 These are our "North Stars". 
 
 - The **bold bullets** are the main user principles, not in any priority.
   - The sub-bullets are a very dense illustrations of how the underlying code behaves.
 
-- **SIMPLE - ki1r0y doesn't model the universe. But for the things it does well, simple things are simple, and complex things are possible. We do this through simple but sophisticated models built around reusable blocks.**
+- **SIMPLE - ki1r0y doesn't model the universe. But for the things it does do, simple things are simple, and complex things are possible. We do this through simple but sophisticated models built around reusable blocks.**
   - Everything the user sees is a reified block: paragraph, heading, avatar, image, 3d shape, etc.. Internally, these are modeled as a person, place, or thing (with varying implications on how data is versioned and stored).
   - We make blocks obvious by making it easy for the user to select them and move them around. Direct-manipulation is fun and gives people a feeling of empowerment.
   - Blocks have properties, which are shown and adjustable in the inspector.

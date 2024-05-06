@@ -4,53 +4,69 @@
     <meta charset="utf-8">
     <title>ki1r0y tests</title>
 
-    <script src="https://unpkg.com/@croquet/croquet"></script>
+    <meta name="viewport" content="initial-scale=1, viewport-fit=cover">
+
+    <script src="https://unpkg.com/@croquet/croquet"></script> <!-- for croquetBlockSpec -->
+
     <!-- <link rel="stylesheet" href="stylesheets/play.css"> --> <!-- fixme: here for structure-play, but beware scrolling! -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/material-components-web@v11.0.0/dist/material-components-web.min.css"> -->
+    <!-- <script src="https://unpkg.com/material-components-web@v11.0.0/dist/material-components-web.min.js"></script> -->
 
-    <link rel="stylesheet" href="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine.css">
-    <script src="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine.js"></script>
-    <script src="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine-html.js"></script>
-    <script src="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/boot0.js"></script>
+    <link rel="stylesheet" href="/jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine.css">
+    <script src="/jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine.js"></script>
+    <script src="/jasmine-standalone-4.5.0/lib/jasmine-4.5.0/jasmine-html.js"></script>
+    <script src="/jasmine-standalone-4.5.0/lib/jasmine-4.5.0/boot0.js"></script>
     <!-- optional: include a file here that configures the Jasmine env -->
-    <script src="jasmine-standalone-4.5.0/lib/jasmine-4.5.0/boot1.js"></script>
+    <script src="/jasmine-standalone-4.5.0/lib/jasmine-4.5.0/boot1.js"></script>
 
+    <!--
+	"@kilroy-code/distributed-security/": "https://kilroy-code.github.io/distributed-security/",
+      -->
     <script type="importmap">
       {
 	"imports": {
-	  "@kilroy-code/": "/@kilroy-code/",
+          "@kilroy-code/distributed-security": "//localhost:59693/@kilroy-code/distributed-security/dist/index-bundle.mjs",
+          "@kilroy-code/": "/@kilroy-code/",          
 	  "nanoid": "/javascripts/nanoid.mjs",
 	  "uuid4": "/javascripts/uuid4.mjs"
 	}
       }
     </script>
 
+
     <script type="module">
-      import "@kilroy-code/api-keys/spec/spec.mjs";
-      import "@kilroy-code/hidden-tab-simulator/spec/spec.mjs";
-      import "@kilroy-code/croquet-in-memory/spec/spec.mjs";
-      import "@kilroy-code/rules/spec/spec.mjs";
-
-      import '@kilroy-code/blocks/spec/assemblySpec.mjs';
-      import '@kilroy-code/blocks/spec/modelSpec.mjs';
-      import '@kilroy-code/blocks/spec/viewSpec.mjs';
-      import '@kilroy-code/blocks/spec/blockSpec.mjs';
-      import '@kilroy-code/blocks/spec/croquetBlockSpec.mjs';
-
-      import "@kilroy-code/storage/spec/identitySpec.mjs";
-      import "@kilroy-code/storage/spec/spec.mjs";
-      import "@kilroy-code/storage/spec/restSpec.mjs";
-      
-      import "@kilroy-code/nodes/spec/registerableSpec.mjs";
-      import "@kilroy-code/nodes/spec/treeSpec.mjs";
-      import "@kilroy-code/nodes/spec/displayControllerSpec.mjs";
+      // Not implemented
+      // import "@kilroy-code/material-components/spec/materialSpec.mjs";
       // fixme: need domSpec
       //import "./@kilroy-code/nodes/spec/mdcSpec.mjs";
       //import "./@kilroy-code/replicator-base/spec/spec.mjs"
 
+      import "@kilroy-code/api-keys/spec/spec.mjs";
+      import "@kilroy-code/hidden-tab-simulator/spec/spec.mjs";
+      import "@kilroy-code/rules/spec/spec.mjs";
+      import "@kilroy-code/croquet-in-memory/spec/spec.mjs";
+      import "@kilroy-code/storage/spec/identitySpec.mjs";
+      import "@kilroy-code/storage/spec/spec.mjs";
+      import "@kilroy-code/storage/spec/restSpec.mjs";
+      import "@kilroy-code/nodes/spec/registerableSpec.mjs";
+      import "@kilroy-code/nodes/spec/treeSpec.mjs";
+      import "@kilroy-code/nodes/spec/displayControllerSpec.mjs";
+      import '@kilroy-code/blocks/spec/assemblySpec.mjs';
+      import '@kilroy-code/blocks/spec/viewSpec.mjs';
+      import '@kilroy-code/blocks/spec/blockSpec.mjs';
+      import '@kilroy-code/blocks/spec/modelSpec.mjs';
+      //import '@kilroy-code/blocks/spec/croquetBlockSpec.mjs'; // fixme
       import '@kilroy-code/compositions/spec/compositionSpec.mjs';
+
+      //import '@kilroy-code/distributed-security/spec/securitySpec.mjs';
+      //import '@kilroy-code/distributed-security/dist/securitySpec-bundle.mjs'; // Needs to be in the same directory as it's vault.html
+      //import '@kilroy-code/signed-cloud-server/spec/signedCloudSpec.mjs';
+
     </script>
   </head>
   <body>
     <h3>ki1r0y tests: Do not hide or close this tab during tests.</h3>
+    <div id="qrcodeHolder"></div>
   </body>
 </html>

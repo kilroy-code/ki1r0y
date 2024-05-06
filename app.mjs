@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import compression from 'compression';
 import { ki1r0yError, ClientError } from '@kilroy-code/utilities/errors.mjs';
+import cors from 'cors';
 
 process.title = 'ki1r0y';
 
@@ -24,6 +25,7 @@ const nounRouter = configureNouns(app);
 // It is more efficient to support gzip in a production reverse proxy, but doing it here in development
 // so that we're more likely hit any snags now rather than in production.
 app.use(compression());
+app.use(cors()); // if/when we need it.
 
 app.use(logger('dev'));
 app.use(express.json());
