@@ -7,7 +7,7 @@ import compression from 'compression';
 import { ki1r0yError, ClientError } from '@kilroy-code/utilities/errors.mjs';
 import cors from 'cors';
 
-process.title = 'ki1r0y';
+process.title = 'ki1r0yapp';
 
 const app = express();
 export default app;
