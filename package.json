@@ -42,7 +42,7 @@
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/rules": "^1.0.5",
     "@kilroy-code/signed-cloud-server": "^0.0.2",
-    "@kilroy-code/storage": "^0.0.6",
+    "@kilroy-code/storage": "^0.0.7",
     "@kilroy-code/utilities": "^1.0.7",
     "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
