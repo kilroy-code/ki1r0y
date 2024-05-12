@@ -26,7 +26,7 @@
     <script type="importmap">
       {
 	"imports": {
-          "@kilroy-code/distributed-security": "//localhost:59693/@kilroy-code/distributed-security/dist/index-bundle.mjs",
+          "@kilroy-code/distributed-security": "/@kilroy-code/distributed-security/dist/index-bundle.mjs",
           "@kilroy-code/": "/@kilroy-code/",          
 	  "nanoid": "/javascripts/nanoid.mjs",
 	  "uuid4": "/javascripts/uuid4.mjs"
@@ -59,8 +59,7 @@
       //import '@kilroy-code/blocks/spec/croquetBlockSpec.mjs'; // fixme
       import '@kilroy-code/compositions/spec/compositionSpec.mjs';
 
-      //import '@kilroy-code/distributed-security/spec/securitySpec.mjs';
-      //import '@kilroy-code/distributed-security/dist/securitySpec-bundle.mjs'; // Needs to be in the same directory as it's vault.html
+      import '@kilroy-code/distributed-security/dist/securitySpec-bundle.mjs'; // Needs to be in the same directory as it's vault.html
       //import '@kilroy-code/signed-cloud-server/spec/signedCloudSpec.mjs';
 
     </script>
