@@ -64,7 +64,7 @@ Framework for creating a tree of synchronized block content with an associated u
 ### Nouns
 
 - **[nodes](https://github.com/kilroy-code/nodes)** 
--![](public/images/experimental.png) 
+![](public/images/experimental.png) 
 [![npm test](https://github.com/kilroy-code/nodes/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/nodes/actions/workflows/npm-test.yml) - 
 The nouns that display, get manipulated, and persist in ki1r0y.
 - **[display2d]()** 
@@ -83,9 +83,9 @@ The nouns that display, get manipulated, and persist in ki1r0y.
 
 ### Persistance
 
-- **[distributed-security](https://github.com/kilroy-code/distributed-security)** - ![](public/images/stable.png)
+- **[distributed-security](https://github.com/kilroy-code/distributed-security)** ![](public/images/stable.png)
 [![npm test](https://github.com/kilroy-code/distributed-security/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/distributed-security.yml) - Signed and encrypted document infrastructure based on public key encryption and self-organizing users.
-- **[signed-cloud-server](https://github.com/kilroy-code/signed-cloud-server)** - ![](public/images/stable.png) 
+- **[signed-cloud-server](https://github.com/kilroy-code/signed-cloud-server)** ![](public/images/stable.png) 
 [![npm test](https://github.com/kilroy-code/signed-cloud-server/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/signed-cloud-server.yml) - Basic cloud storage in which contents are cryptographically signed, using distributed-security as a co-dependency.
 - **[storage](https://github.com/kilroy-code/storage)** 
 ![](public/images/experimental.png) 

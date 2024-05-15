@@ -1,6 +1,6 @@
 {
   "name": "@kilroy-code/ki1r0y",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "start": "node ./bin/www.mjs",
     "stop": "pkill ki1r0yapp",
@@ -38,11 +38,11 @@
     "@kilroy-code/blocks": "^0.0.5",
     "@kilroy-code/compositions": "^0.0.4",
     "@kilroy-code/croquet-in-memory": "^0.0.4",
-    "@kilroy-code/distributed-security": "^0.0.8",
+    "@kilroy-code/distributed-security": "^0.0.9",
     "@kilroy-code/jsonrpc": "^0.0.3",
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/rules": "^1.0.5",
-    "@kilroy-code/signed-cloud-server": "^0.0.7",
+    "@kilroy-code/signed-cloud-server": "^0.0.8",
     "@kilroy-code/storage": "^0.0.8",
     "@kilroy-code/utilities": "^1.0.7",
     "compression": "^1.7.4",
