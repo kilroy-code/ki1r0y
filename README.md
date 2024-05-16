@@ -105,7 +105,7 @@ When an action is completed, all and only the changed blocks are persisted, wher
 
 - **[garbage-collection]()** 
 ![](public/images/prototyped.png) - A realtime background GC that I've previously written so that stale versions of objects (and their media) can be removed from storage.
-- **[jsonrpc](https://github.com/kilroy-code/jsonprc)** - ![](public/images/stable.png) 
+- **[jsonrpc](https://github.com/kilroy-code/jsonprc)** ![](public/images/stable.png) 
 [![npm test](https://github.com/kilroy-code/croquet-in-memory/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/jsonrpc/actions/workflows/npm-test.yml) - Simple, uniform, and reliable asynchronous remote procedure calls between windows, workers, and such.
 - **[croquet-in-memory](https://github.com/kilroy-code/croquet-in-memory)** 
 ![](public/images/stable.png) 
