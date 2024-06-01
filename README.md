@@ -133,7 +133,13 @@ We use a lot of programming constructs in ki1r0y, but we try to think as much as
 
 **Cross-property synchronization**: The value of any property may be defined by code - a formula like the cell of a spreadsheet. When the value is computed, we keep track of all the other properties that are used by that computation. When any user sets a new value, we automatically reset any an all properties that were depending on the old value. Because every property assignment is made at the same time among all the users, all the properties of all the objects stay in sync. We don't need to send massive updates of objects over the network -- just the much smaller user-initiated changses to individual property values.
 
-**Serialization**: We pickle objects a lot: 1) The content starts off in sync for each user by getting a serialized copy of all the content objects. 2) Each version of each object is saved so that we can go back to it. 3) Integrity is built from having each serialized version signed by it's author and identified by the hash of the serialization. Fortunately, is easy to capture all this in a JSON of the object's properties.
+**Serialization**: We pickle objects a lot. Fortunately, it is easy to capture all this in a JSON of the object's properties.
+
+ 1. The content starts off in sync for each user by getting a serialized copy of all the content objects.
+ 2. Each version of each object is saved so that we can "undo" back to it.
+ 3. Integrity is built from having each serialized version signed by it's author and identified by the hash of the serialization. 
+ 4. Integration with other systems is trivial because each object definition is saved in simple, language-neutral way.
+
 
 ## Design Values
 

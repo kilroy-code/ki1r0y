@@ -34,9 +34,9 @@
     "jasmine": "^4.5.0"
   },
   "dependencies": {
-    "@ki1r0y/distributed-security": "^1.0.0",
-    "@ki1r0y/jsonrpc": "^1.0.0",
-    "@ki1r0y/signed-cloud-server": "^1.0.0",
+    "@ki1r0y/distributed-security": "^1.0.2",
+    "@ki1r0y/jsonrpc": "^1.0.1",
+    "@ki1r0y/signed-cloud-server": "^1.0.4",
     "@kilroy-code/api-keys": "^0.0.2",
     "@kilroy-code/blocks": "^0.0.5",
     "@kilroy-code/compositions": "^0.0.4",
