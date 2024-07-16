@@ -1,6 +1,6 @@
 {
   "name": "@kilroy-code/ki1r0y",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "scripts": {
     "start": "node ./bin/www.mjs",
     "stop": "pkill ki1r0yapp",
@@ -34,9 +34,11 @@
     "jasmine": "^4.5.0"
   },
   "dependencies": {
-    "@ki1r0y/distributed-security": "^1.0.7",
+    "@ki1r0y/cache": "^1.0.1",
+    "@ki1r0y/distributed-security": "^1.1.0",
     "@ki1r0y/jsonrpc": "^1.0.1",
-    "@ki1r0y/signed-cloud-server": "^1.0.9",
+    "@ki1r0y/signed-cloud-client": "^0.0.1",
+    "@ki1r0y/signed-cloud-server": "^1.0.10",
     "@kilroy-code/api-keys": "^0.0.2",
     "@kilroy-code/blocks": "^0.0.5",
     "@kilroy-code/compositions": "^0.0.4",
