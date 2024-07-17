@@ -91,7 +91,7 @@ The nouns that display, get manipulated, and persist in ki1r0y.
 [![npm test](https://github.com/kilroy-code/signed-cloud-server/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/signed-cloud-server.yml) - Basic cloud storage in which contents are cryptographically signed, using distributed-security as a co-dependency.
 - **[signed-cloud-client](https://github.com/kilroy-code/signed-cloud-client)**
 ![](public/images/experimental.png)
-[![npm test](https://github.com/kilroy-code/signed-cloud-client.yml/badge.svg)](https://github.com/kilroy-code/signed-cloud-client.yml) - Extensible utility for saving and retrieving things via a Signed Cloud Server API.
+[![npm test](https://github.com/kilroy-code/signed-cloud-client/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/signed-cloud-client.yml) - Extensible utility for saving and retrieving things via a Signed Cloud Server API.
 - **[storage](https://github.com/kilroy-code/storage)** 
 ![](public/images/deprecated.png) 
 [![npm test](https://github.com/kilroy-code/storage/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/storage/actions/workflows/npm-test.yml) - 
@@ -111,8 +111,7 @@ When an action is completed, all and only the changed blocks are persisted, wher
 - **[garbage-collection]()** 
 ![](public/images/prototyped.png) - A realtime background GC that I've previously written so that stale versions of objects (and their media) can be removed from storage.
 - **[jsonrpc](https://github.com/kilroy-code/jsonprc)**
-![](public/images/stable.png) 
-[![npm test](https://github.com/kilroy-code/jsonrpc/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/jsonrpc/actions/workflows/npm-test.yml) - Simple, uniform, and reliable asynchronous remote procedure calls between windows, workers, and such.
+![](public/images/stable.png) - Simple, uniform, and reliable asynchronous remote procedure calls between windows, workers, and such.
 - **[cache](https://github.com/kilroy-code/jsonprc)**
 ![](public/images/stable.png) 
 [![npm test](https://github.com/kilroy-code/cache/actions/workflows/npm-test.yml/badge.svg)](https://github.com/kilroy-code/cache/actions/workflows/npm-test.yml) - Simple, fast, least-recently-used cache (specifically, last set) with active time-to-live eviction, optimized for large-string keys and frequent reads, and no dependencies (other than jasmine dev testing).
