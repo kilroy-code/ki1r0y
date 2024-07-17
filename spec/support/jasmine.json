@@ -2,9 +2,8 @@
   "spec_dir": ".",
   "spec_files": [
     "public/@kilroy-code/*/spec/*[sS]pec.?(m)js",
+    "public/@ki1r0y/*/spec/*[sS]pec.?(m)js",    
 
-    "!public/@kilroy-code/signed-cloud-server/**/*",
-    
     "!public/@kilroy-code/text-edit/**/*",
     "!public/@kilroy-code/part-whole/**/*"
   ],
