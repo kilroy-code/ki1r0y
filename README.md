@@ -154,60 +154,86 @@ We use a lot of programming constructs in ki1r0y, but we try to think as much as
 
 Regardless of [concept perspectives](#ki1r0y) or [component software](#modules), there are "North Stars" that guide our design:
 
-- **SIMPLE - ki1r0y doesn't model the universe. But for the things it does do, simple things are simple, and complex things are possible. We do this through simple but sophisticated models built around reusable blocks.**
-  - Reading this page, one might question that sanity of anyone claiming simplicity. We have not yet learned how to _explain_ all of this simply. However, the model that a user builds up _during use_ should be quite simple, even if continued use reveales some subtle and sophisticated behaviors.
-  - Everything the user sees is a reified block: paragraph, heading, avatar, image, 3d shape, etc.. Internally, these are modeled as a person, place, or thing (with varying implications on how data is versioned and stored).
-  - We make blocks obvious by making it easy for the user to select them and move them around. Direct-manipulation is fun and gives people a feeling of empowerment.
-  - Blocks have properties, which are shown and adjustable in the inspector.
-  - We avoid "mode" implementation concepts such as edit-time, load-time, run-time. Everything is always live. 
-- **SYNCHRONIZED - The properties of a block stay synchronized across all the different displays of the same block -- even between other users.**
+### Simple
+> *ki1r0y doesn't model the universe. But for the things it does do, simple things are simple, and complex things are possible. We do this through simple but sophisticated models built around reusable blocks.*
+
+- Reading this page, one might question that sanity of anyone claiming simplicity. We have not yet learned how to _explain_ all of this simply. However, the model that a user builds up _during use_ should be quite simple, even if continued use reveales some subtle and sophisticated behaviors.
+- Everything the user sees is a reified block: paragraph, heading, avatar, image, 3d shape, etc.. Internally, these are modeled as a person, place, or thing (with varying implications on how data is versioned and stored).
+- We make blocks obvious by making it easy for the user to select them and move them around. Direct-manipulation is fun and gives people a feeling of empowerment.
+- Blocks have properties, which are shown and adjustable in the inspector.
+- We avoid "mode" implementation concepts such as edit-time, load-time, run-time. Everything is always live. 
+
+### Synchronized
+> *The properties of a block stay synchronized across all the different displays of the same block -- even between other users.*
+
   - As in a spreadsheet, the formula in one property may refer to another property (perhaps in another block). When the referenced property changes, the referring property automatically updates to a newly computed value, based on its formula.
   - Blocks have various displays by which they can be seen and minipulated. Changing a property in one display will automatically update in other displays.
   - When something changes, the same block automatically changes for all users visiting the same place. This includes the avatar blocks of the people who are currently on that page, as well as their current selections.
-- **STORED - Whenever someone's interaction with a block ends (e.g., the end of dragging it from one location to another), the block is saved in externally accessible files in a way that securely memorializes the block's provenance, even as the data is consumed by _other_ systems.**
-  - Standard formats are used for media files. However, these files don't have the necessary additional properties used by ki1r0y blocks, such as those involving secure attribution. The media  is saved under a name that is a hash of its contents. Any number of blocks may reference the media, and the title, author, and other metadata is part of the referencing block rather than the media. When a block is saved, the data is cryptographically signed by the author, along with a timestamp and a reference to the antecedent block (e.g., what block was edited to produce this one).
-  - When a property of an ordinary thing changes, it is technically considered to be a different thing. The URL to its saved data is different. For example, if you change the handle of a hammer, or even it's name, it is no longer the same hammer. However, that same hammer - with the same URL, can appear many times in a composition or even across different compositions by the same or different people. Anyone can create a new thing. However, the system will just ignore an attempt to save an already existing thing - i.e., with the exact same data as something that someone else already made. The existing URL will be used - even on different pages by different authors.
-  - A place is different from things in that it retains it's identity - and the URL to its data - even as it is changed. For example, when something is added or changed within Montana, it is still Montana. However, there can be only one Montana. ki1r0y maintains a history of each version of a place as it changes. Anyone can create their own new place: if I try to save your place, the system just makes a copy for me, with a different URL.
-  - A person also maintains its identity as it changes. like a place. However, only the owner of a person-block can save changed data. Some of the personal data is typically private to a specified audience.
-- **STRUCTURED - A person can visit a _place_, which may be a blog, an app, a 3d scene graph, etc. A place is a kind of block, made of an assembly of other blocks. This structure helps users navigate the system.**
-  - The top-level place in the structure defines an overall composition. 
-  - As an individual user navigates the content of a place - by tab key or arrow keys, selecting a block, or other navigation - the URL changes in their browser. Visiting this URL positions the user at that same specific block within the composition.
-  - When saving a block, the "inputs" are part of the parent's data, not the child blocks. This includes text formatting, position/size/rotation of geometric objects, material or other built-in variants, and playback timestamp for playable media. This is what allows, e.g., the text "Led Zeppelin" to be the same thing wherever it appears, regardless of formatting.
-  - Behaviors are blocks that are attached to display blocks. When a user makes some gesture on a display object, we look up the tree structure to find the behavior. (Technically, this is called part-whole inheritance.)
-- **SOCIAL - People can text and talk live with the other people in the same place, and can see how they interact with the blocks. Each block in the structure can be individually shared on social media, and people who follow those links from social media arrive at the specific block that was shared.**
-  - If the user selects a block (e.g., by clicking it), the user is shown information about it *and* its antecedents, such as the title, description, author, and social media shares, and buttons for the user to share that block themselves. (Cancelling a selection, such as clicking on "nothing", selects the overall composition.)
-  - By having URLs for individual blocks, there are many more sharable items than just for the overall composition. When that URL is scraped by the social media site, the title, description, image, and other metadata is for that specific block. That same basic URL is used wherever that block may appear - multiple times in the same composition, or even across different compositions by different users. This allows popular blocks to accumulate a lot of social media interactions. (All social media ignore "campaign" URL query parameters when counting interactions, but include the parameters when linking back to the content. We use these parameters to identify the composition and any instance repetition of the block within the composition.)
-  - A user can be a member of any number of self-formed "teams" within ki1r0y. While each block tracks the edits by individual authors, a composition as a whole can be owned by a team of authors. Teams can make their own rules, much like a [DAO](https://en.wikipedia.org/wiki/The_DAO_(organization)), and can restrict content visibility to the team.
-- **SEARCHABLE - Related ki1r0y content suggestions are shown for whatever you interact with. The content is automatically optimized for external search to bring people directly to the relevant part of a composition.**
-  - As a user interacts with ki1r0y, related items are unobtrusively shown. This gives the reputed benefit of personalized ads, but without an actual ad, and done for the user's benefit rather than an advertiser's. (Also, content is is related to the action, not the person, as we do not track personal histories.)
-  - Text chat is taken as a search. There's no need for a separate search mode. When navigating to a block, the title and related metadata are used as search terms. The results first include any matching blocks from the same composition, and then from your "teams". This is a great way to guide users within the composition or team, and to provide custom "commands" - blocks that do something when selected. It's more of a "people like you also read...", then a "here's what's happening". (By contrast, a home page feed might be more time-based.)
-  - The system scores content based on successful interactions. This encourages content creators to have meaningful and accurate titles and related metadata.
-  - External search engines scrape whole sites rather than specific pages as social media does, and they use URLs in different ways. To handle search while also having social URLs that point to specific blocks within a composition, ki1r0y always presents two different kinds of canonical URLs in the page metadata.
-- **SAFE - Users can safely explore without fear of breaking something, getting lost, or being harmed by others. They can have faith in the accuracy of the author metadata, and that only the intended audience can see their private content. User have a general "right to repair" and an expectation of durability.**
-  - Each composition change gets a new URL, labeled in the browser history with action that changed it. Any user present can "undo"/"redo" with the browser back/forward button, or browser history.
-  - At any time, any user can choose to be alone: i.e., to leave the group of users of the current composition, while staying in a "group of one" on the current composition. Neither group sees live changes made by the other, and there is no conflict in saving because both are saving changes separately under their own author or team names. (Leaving in this way will save team-owned compositions under the individual's ownership.)
-  - Each bit of content distinguishes between:
-     - an author - always an individual person:
-         - When you import or edit content, that portion of content is cryptographically signed by you, and will always be attributable to you.
-         - The antecedent content and its attributions from before editing is also included in the signature, 
-         - Anyone can inspect this, even if they cannot see the content itself.
-     - a content owner - an individual author or a team of authors:
-         -  You can always edit content, even in compositions that you do not own.
-         -  If you are on the owning team -- e.g., a family project or a workgroup wiki -- the modified composition is saved in the place.
-         -  If you are not on the owning team, the modification copy is saved under a team that you are a member of, and the original is left untouched.
-         -  The content ownership is part of the cryptographic signature.
-     - an audience - an individual person or a team.
-         - Private content is end-to-end encrypted for the specified individual or team.
-         - Neither the operators of ki1r0y, their successors, nor any other legal or criminal entity can read that content.
-   - Everything is open source, including the basic server code. People can inspect the code and run their own versions. (ki1r0y.com may provide proprietary value-added services such as commerce or support for service at scale.)
-   - The persisteded blocks and media can be downloaded by third parties, and even externally updated subject to the safe/storage rules. This brings more utility and more people to the party, and gives the content value outside of ki1r0y itself. However, private media (including groups of personal data) is still end-to-end encrypted for only its intended audience, and not by ki1r0y or other readers of the block data.
-- **SPEEDY - Users shouldn't have to wait for the system.**
-  - The different block and media semantics allows for different storage mechanisms. Since the overwhelming majority is immutable, it can be cached at client and server using conventional mechanisms. The global nature of media files' content-based URLs means that the most reused media is likely to be cached, and the search and social mechanisms encourage reuse.
-  - The block structure and properties are very small. It includes enough information that meaningful placeholders can be displayed and then incrementally loaded based on position within the composition. Additionally there is enough information in the two different kinds of URLs (from search and social media), that a server can get the relevant block data to build a static page very quickly on demand. Initial static page time is important for visitors entering the site through search or social, external links, and goes into external search-engine quality metrics.
-  - Once in, synchronizing changes are fast because the Croquet mechanism transmits only the user's gesture, not the object's new state. Additionally, the effect of the  user's gesture can be shown locally in that user's display immediately.
-  - Saving requires only the block that has changed and it's ancestors. The data is small enough that signing it is quick, and in any case, asynchronous to further activity.
-- **SCALABLE - Being useful depends on being able to handle a lot of users, a lot of content, and a lot of different kinds of each. Moreover, compositions by different people can be "tiled" to produce a larger whole.**
-  - All the "server" operations are stateless and partitionable by URL, which makes it easy to balance load among a dynamically scalable set of machines. Moreover, many of them are amenable to federation by a variety of distributed user-contributed services.
-  - While ki1r0y doesn't try to cover every kind of content (e.g., twitchy single-user games, or military situations), it does cover a very broad array of needs. This may include code/behavior as sharable/attributed media, DAOs, and distributed/authenticated open ledgers.
-  - Examples of tiling are to be determined, but may include: mostly independent marketplace stalls, time-ordered ledger-regions,  2d map-worlds, and expansive 3d scenes.
+
+### Stored 
+> *Whenever someone's interaction with a block ends (e.g., the end of dragging it from one location to another), the block is saved in externally accessible files in a way that securely memorializes the block's provenance, even as the data is consumed by _other_ systems.*
+
+- Standard formats are used for media files. However, these files don't have the necessary additional properties used by ki1r0y blocks, such as those involving secure attribution. The media  is saved under a name that is a hash of its contents. Any number of blocks may reference the media, and the title, author, and other metadata is part of the referencing block rather than the media. When a block is saved, the data is cryptographically signed by the author, along with a timestamp and a reference to the antecedent block (e.g., what block was edited to produce this one).
+- When a property of an ordinary thing changes, it is technically considered to be a different thing. The URL to its saved data is different. For example, if you change the handle of a hammer, or even it's name, it is no longer the same hammer. However, that same hammer - with the same URL, can appear many times in a composition or even across different compositions by the same or different people. Anyone can create a new thing. However, the system will just ignore an attempt to save an already existing thing - i.e., with the exact same data as something that someone else already made. The existing URL will be used - even on different pages by different authors.
+- A place is different from things in that it retains it's identity - and the URL to its data - even as it is changed. For example, when something is added or changed within Montana, it is still Montana. However, there can be only one Montana. ki1r0y maintains a history of each version of a place as it changes. Anyone can create their own new place: if I try to save your place, the system just makes a copy for me, with a different URL.
+- A person also maintains its identity as it changes. like a place. However, only the owner of a person-block can save changed data. Some of the personal data is typically private to a specified audience.
+
+### Structured 
+> *A person can visit a _place_, which may be a blog, an app, a 3d scene graph, etc. A place is a kind of block, made of an assembly of other blocks. This structure helps users navigate the system.*
+
+- The top-level place in the structure defines an overall composition. 
+- As an individual user navigates the content of a place - by tab key or arrow keys, selecting a block, or other navigation - the URL changes in their browser. Visiting this URL positions the user at that same specific block within the composition.
+- When saving a block, the "inputs" are part of the parent's data, not the child blocks. This includes text formatting, position/size/rotation of geometric objects, material or other built-in variants, and playback timestamp for playable media. This is what allows, e.g., the text "Led Zeppelin" to be the same thing wherever it appears, regardless of formatting.
+- Behaviors are blocks that are attached to display blocks. When a user makes some gesture on a display object, we look up the tree structure to find the behavior. (Technically, this is called part-whole inheritance.)
+
+### Social
+> *People can text and talk live with the other people in the same place, and can see how they interact with the blocks. Each block in the structure can be individually shared on social media, and people who follow those links from social media arrive at the specific block that was shared.*
+
+- If the user selects a block (e.g., by clicking it), the user is shown information about it *and* its antecedents, such as the title, description, author, and social media shares, and buttons for the user to share that block themselves. (Cancelling a selection, such as clicking on "nothing", selects the overall composition.)
+- By having URLs for individual blocks, there are many more sharable items than just for the overall composition. When that URL is scraped by the social media site, the title, description, image, and other metadata is for that specific block. That same basic URL is used wherever that block may appear - multiple times in the same composition, or even across different compositions by different users. This allows popular blocks to accumulate a lot of social media interactions. (All social media ignore "campaign" URL query parameters when counting interactions, but include the parameters when linking back to the content. We use these parameters to identify the composition and any instance repetition of the block within the composition.)
+- A user can be a member of any number of self-formed "teams" within ki1r0y. While each block tracks the edits by individual authors, a composition as a whole can be owned by a team of authors. Teams can make their own rules, much like a [DAO](https://en.wikipedia.org/wiki/The_DAO_(organization)), and can restrict content visibility to the team.
+
+### Searchable
+> *Related ki1r0y content suggestions are shown for whatever you interact with. The content is automatically optimized for external search to bring people directly to the relevant part of a composition.*
+
+- As a user interacts with ki1r0y, related items are unobtrusively shown. This gives the reputed benefit of personalized ads, but without an actual ad, and done for the user's benefit rather than an advertiser's. (Also, content is is related to the action, not the person, as we do not track personal histories.)
+- Text chat is taken as a search. There's no need for a separate search mode. When navigating to a block, the title and related metadata are used as search terms. The results first include any matching blocks from the same composition, and then from your "teams". This is a great way to guide users within the composition or team, and to provide custom "commands" - blocks that do something when selected. It's more of a "people like you also read...", then a "here's what's happening". (By contrast, a home page feed might be more time-based.)
+- The system scores content based on successful interactions. This encourages content creators to have meaningful and accurate titles and related metadata.
+- External search engines scrape whole sites rather than specific pages as social media does, and they use URLs in different ways. To handle search while also having social URLs that point to specific blocks within a composition, ki1r0y always presents two different kinds of canonical URLs in the page metadata.
+
+### Safe
+> *Users can safely explore without fear of breaking something, getting lost, or being harmed by others. They can have faith in the accuracy of the author metadata, and that only the intended audience can see their private content. User have a general "right to repair" and an expectation of durability.*
+
+- Each composition change gets a new URL, labeled in the browser history with action that changed it. Any user present can "undo"/"redo" with the browser back/forward button, or browser history.
+- At any time, any user can choose to be alone: i.e., to leave the group of users of the current composition, while staying in a "group of one" on the current composition. Neither group sees live changes made by the other, and there is no conflict in saving because both are saving changes separately under their own author or team names. (Leaving in this way will save team-owned compositions under the individual's ownership.)
+- Each bit of content distinguishes between:
+ - an author - always an individual person:
+     - When you import or edit content, that portion of content is cryptographically signed by you, and will always be attributable to you.
+     - The antecedent content and its attributions from before editing is also included in the signature, 
+     - Anyone can inspect this, even if they cannot see the content itself.
+ - a content owner - an individual author or a team of authors:
+     -  You can always edit content, even in compositions that you do not own.
+     -  If you are on the owning team -- e.g., a family project or a workgroup wiki -- the modified composition is saved in the place.
+     -  If you are not on the owning team, the modification copy is saved under a team that you are a member of, and the original is left untouched.
+     -  The content ownership is part of the cryptographic signature.
+ - an audience - an individual person or a team.
+     - Private content is end-to-end encrypted for the specified individual or team.
+     - Neither the operators of ki1r0y, their successors, nor any other legal or criminal entity can read that content.
+- Everything is open source, including the basic server code. People can inspect the code and run their own versions. (ki1r0y.com may provide proprietary value-added services such as commerce or support for service at scale.)
+- The persisteded blocks and media can be downloaded by third parties, and even externally updated subject to the safe/storage rules. This brings more utility and more people to the party, and gives the content value outside of ki1r0y itself. However, private media (including groups of personal data) is still end-to-end encrypted for only its intended audience, and not by ki1r0y or other readers of the block data.
+
+### Speedy
+> *Users shouldn't have to wait for the system.*
+
+- The different block and media semantics allows for different storage mechanisms. Since the overwhelming majority is immutable, it can be cached at client and server using conventional mechanisms. The global nature of media files' content-based URLs means that the most reused media is likely to be cached, and the search and social mechanisms encourage reuse.
+- The block structure and properties are very small. It includes enough information that meaningful placeholders can be displayed and then incrementally loaded based on position within the composition. Additionally there is enough information in the two different kinds of URLs (from search and social media), that a server can get the relevant block data to build a static page very quickly on demand. Initial static page time is important for visitors entering the site through search or social, external links, and goes into external search-engine quality metrics.
+- Once in, synchronizing changes are fast because the Croquet mechanism transmits only the user's gesture, not the object's new state. Additionally, the effect of the  user's gesture can be shown locally in that user's display immediately.
+- Saving requires only the block that has changed and it's ancestors. The data is small enough that signing it is quick, and in any case, asynchronous to further activity.
+
+### Scalable
+> *Being useful depends on being able to handle a lot of users, a lot of content, and a lot of different kinds of each. Moreover, compositions by different people can be "tiled" to produce a larger whole.*
+
+- All the "server" operations are stateless and partitionable by URL, which makes it easy to balance load among a dynamically scalable set of machines. Moreover, many of them are amenable to federation by a variety of distributed user-contributed services.
+- While ki1r0y doesn't try to cover every kind of content (e.g., twitchy single-user games, or military situations), it does cover a very broad array of needs. This may include code/behavior as sharable/attributed media, DAOs, and distributed/authenticated open ledgers.
+- Examples of tiling are to be determined, but may include: mostly independent marketplace stalls, time-ordered ledger-regions,  2d map-worlds, and expansive 3d scenes.
 
