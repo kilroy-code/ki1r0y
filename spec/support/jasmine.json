@@ -5,6 +5,7 @@
     "public/@ki1r0y/*/spec/*[sS]pec.?(m)js",    
 
     "!public/@kilroy-code/edit/**/*",
+    "!public/@kilroy-code/compositions/**/*",
     "!public/@kilroy-code/part-whole/**/*"
   ],
   "helpers": [
