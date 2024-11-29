@@ -157,7 +157,7 @@ Regardless of [concept perspectives](#ki1r0y) or [component software](#modules),
 ### Simple
 > *ki1r0y doesn't model the universe. But for the things it does do, simple things are simple, and complex things are possible. We do this through simple but sophisticated models built around reusable blocks.*
 
-- Reading this page, one might question that sanity of anyone claiming simplicity. We have not yet learned how to _explain_ all of this simply. However, the model that a user builds up _during use_ should be quite simple, even if continued use reveales some subtle and sophisticated behaviors.
+- Reading this page, one might question that sanity of anyone claiming simplicity. We have not yet learned how to _explain_ all of this simply. However, the model that a user builds up _during use_ should be quite simple, even if continued use reveales some subtle and sophisticated behaviors. For example, our model of attribution recognizes indvidual authors among a team of content owners. That's straighforward. But by combining that with cryptography that matches that concept, we completely do away with write permissions and access control lists.
 - Everything the user sees is a reified block: paragraph, heading, avatar, image, 3d shape, etc.. Internally, these are modeled as a person, place, or thing (with varying implications on how data is versioned and stored).
 - We make blocks obvious by making it easy for the user to select them and move them around. Direct-manipulation is fun and gives people a feeling of empowerment.
 - Blocks have properties, which are shown and adjustable in the inspector.
