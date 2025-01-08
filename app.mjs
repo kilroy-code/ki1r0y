@@ -20,6 +20,7 @@ app.set('dbdir', path.join(app.locals.rootDirectory, 'db'));      // Must be on 
 
 import siteRouter from './routes/index.mjs';
 import configureNouns from './routes/nouns.mjs';
+import experimentalPersistenceRouter from '@kilroy-code/persist';
 const nounRouter = configureNouns(app);
 
 // It is more efficient to support gzip in a production reverse proxy, but doing it here in development
@@ -28,6 +29,7 @@ app.use(compression());
 app.use(cors()); // if/when we need it.
 
 app.use(logger('dev'));
+app.use('/persist', experimentalPersistenceRouter); // before json parser.
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
