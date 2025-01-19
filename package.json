@@ -45,7 +45,7 @@
     "@kilroy-code/croquet-in-memory": "^0.0.8",
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/persist": "^0.0.1",
-    "@kilroy-code/rules": "^1.0.6",
+    "@kilroy-code/rules": "^1.0.7",
     "@kilroy-code/signed-cloud-client": "^0.0.2",
     "@kilroy-code/storage": "^0.0.9",
     "@kilroy-code/utilities": "^1.0.8",
