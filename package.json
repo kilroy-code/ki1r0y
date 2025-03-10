@@ -1,6 +1,6 @@
 {
   "name": "@kilroy-code/ki1r0y",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "scripts": {
     "start": "node ./bin/www.mjs",
     "stop": "pkill ki1r0yapp",
@@ -48,7 +48,7 @@
     "@kilroy-code/flexstore": "^0.0.4",
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/persist": "^0.0.2",
-    "@kilroy-code/rules": "^1.0.10",
+    "@kilroy-code/rules": "^1.0.11",
     "@kilroy-code/signed-cloud-client": "^0.0.3",
     "@kilroy-code/storage": "^0.0.9",
     "@kilroy-code/ui-components": "^0.0.16",
