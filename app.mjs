@@ -20,6 +20,7 @@ app.set('dbdir', path.join(app.locals.rootDirectory, 'db'));      // Must be on 
 
 import siteRouter from './routes/index.mjs';
 import configureNouns from './routes/nouns.mjs';
+import flexstoreRouter from './public/@kilroy-code/flexstore/lib/router.mjs';
 import experimentalPersistenceRouter from '@kilroy-code/persist';
 const nounRouter = configureNouns(app);
 
@@ -29,6 +30,7 @@ app.use(compression());
 app.use(cors()); // if/when we need it.
 
 app.use(logger('dev'));
+app.use('/flexstore', flexstoreRouter); // before json parser.
 app.use('/persist', experimentalPersistenceRouter); // before json parser.
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
