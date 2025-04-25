@@ -45,7 +45,7 @@
     "@kilroy-code/blocks": "^0.0.5",
     "@kilroy-code/compositions": "^0.0.4",
     "@kilroy-code/croquet-in-memory": "^0.0.8",
-    "@kilroy-code/flexstore": "^0.0.19",
+    "@kilroy-code/flexstore": "^0.0.20",
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/persist": "^0.0.2",
     "@kilroy-code/rules": "^1.0.11",
