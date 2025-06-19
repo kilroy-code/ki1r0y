@@ -1,12 +1,17 @@
 {
   "spec_dir": ".",
+  "comment": "The signed-cloud-server test works by itself, but it relies on the default properties of Security.Storage, which get bashed by flexstore. Unfortunately, all our jasmine tests currently run with the same package definitions in the same NodeJS instance (which is kind of the point), and that means we cannot have it both ways.",
   "spec_files": [
-    "public/@kilroy-code/*/spec/*[sS]pec.?(m)js",
     "public/@ki1r0y/*/spec/*[sS]pec.?(m)js",    
+    "public/@kilroy-code/*/spec/*[sS]pec.?(m)js",
+
+    "!public/@kilroy-code/signed-cloud-server/**/*",
 
     "!public/@kilroy-code/edit/**/*",
     "!public/@kilroy-code/compositions/**/*",
-    "!public/@kilroy-code/part-whole/**/*"
+    "!public/@kilroy-code/storage-archived/**/*",
+    "!public/@kilroy-code/part-whole/**/*",
+    "!public/@kilroy-code/persist/**/*"
   ],
   "helpers": [
     "helpers/**/*.?(m)js"
