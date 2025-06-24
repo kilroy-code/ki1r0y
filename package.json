@@ -11,7 +11,7 @@
     "setup": "ln -s ../node_modules/@kilroy-code ../node_modules/@ki1r0y public; npm run link-browser-packages; npm explore @ki1r0y/signed-cloud-server -- npm install; echo setup",
     "background": "npm stop; (npm start 1>serverTest.log 2>&1 &); sleep 1",
     "cloud": "(cd node_modules/@ki1r0y/signed-cloud-server; npm run background)",
-    "test": "npm run setup && npm run servers && npm run jasmine && pkill ki1r0y",
+    "test": "npm run setup && npm run servers && cat serverTest.log && npm run jasmine && pkill ki1r0y",
     "link-browser-packages": "ln -s ../../node_modules/nanoid/index.browser.js public/javascripts/nanoid.mjs; ln -s ../../node_modules/uuid4/browser.mjs public/javascripts/uuid4.mjs",
     "link-to-material-web": "ln -s ../node_modules/tslib ../node_modules/lit-html ../node_modules/lit ../node_modules/lit-element ../node_modules/@lit ../node_modules/@material public",
     "npm-links-to-public": "npm link public/@kilroy-code/* public/@ki1r0y/*"

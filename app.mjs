@@ -19,10 +19,10 @@ app.locals.rootDirectory = path.dirname(new URL(import.meta.url).pathname);
 app.set('dbdir', path.join(app.locals.rootDirectory, 'db'));      // Must be on same system for efficient file uploads and static gets.
 
 import siteRouter from './routes/index.mjs';
-import configureNouns from './routes/nouns.mjs';
+//import configureNouns from './routes/nouns.mjs';
 import flexstoreRouter from './public/@kilroy-code/flexstore/lib/router.mjs';
-import experimentalPersistenceRouter from '@kilroy-code/persist';
-const nounRouter = configureNouns(app);
+//import experimentalPersistenceRouter from '@kilroy-code/persist';
+//const nounRouter = configureNouns(app);
 
 // It is more efficient to support gzip in a production reverse proxy, but doing it here in development
 // so that we're more likely hit any snags now rather than in production.
@@ -31,7 +31,7 @@ app.use(cors()); // if/when we need it.
 
 app.use(logger('dev'));
 app.use('/flexstore', flexstoreRouter); // before json parser.
-app.use('/persist', experimentalPersistenceRouter); // before json parser.
+//app.use('/persist', experimentalPersistenceRouter); // before json parser.
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -48,7 +48,7 @@ app.use(express.static(path.join(app.locals.rootDirectory, 'public')));
 
 
 app.use('/', siteRouter);
-app.use('/noun', nounRouter);
+//app.use('/noun', nounRouter);
 
 app.use(function (req, res, next) {
   throw new ClientError(`${req.method} ${req.path} not found`, {req, status: 404});
