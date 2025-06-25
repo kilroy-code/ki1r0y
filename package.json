@@ -69,6 +69,7 @@
     "passport": "^0.7.0",
     "passport-http": "^0.3.0",
     "qr-scanner": "^1.4.2",
-    "uuid4": "^2.0.3"
+    "uuid4": "^2.0.3",
+    "web-push": "^3.6.7"
   }
 }
