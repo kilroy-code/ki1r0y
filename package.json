@@ -51,7 +51,7 @@
     "@kilroy-code/blocks": "^0.0.6",
     "@kilroy-code/compositions": "^0.0.5",
     "@kilroy-code/croquet-in-memory": "^0.0.8",
-    "@kilroy-code/flexstore": "^0.0.67",
+    "@kilroy-code/flexstore": "^0.0.69",
     "@kilroy-code/nodes": "^0.0.3",
     "@kilroy-code/rules": "^1.0.13",
     "@kilroy-code/signed-cloud-client": "^0.0.6",
